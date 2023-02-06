@@ -62,7 +62,18 @@ M.delete_command = function()
   M.cmd.delcommand(name)
 end
 
-M.dict = vim.dict or function(x) return x end
+M.dict = vim.dict or function(x)
+  local converted = {}
+  local length = 0
+  for k, v in pairs(x) do
+    converted[tostring(k)] = v
+    length = length + 1
+  end
+  if length == 0 then
+    return vim.empty_dict()
+  end
+  return x
+end
 M.list = vim.list or function(x) return x end
 M.blob = vim.blob or function(x) return x end
 function M.cast(t)
