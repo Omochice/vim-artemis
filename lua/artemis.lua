@@ -102,9 +102,9 @@ M.delete_command = function(name)
   M.cmd.delcommand(name)
 end
 
-M.dict = vim.dict or function(x) return x end
-M.list = vim.list or function(x) return x end
-M.blob = vim.blob or function(x) return x end
+M.dict = type(vim.dict) == 'function' and vim.dict or function(x) return x end
+M.list = type(vim.list) == 'function' and vim.list or function(x) return x end
+M.blob = type(vim.dict) == 'function' and vim.blob or function(x) return x end
 function M.cast(t)
   if type(t) ~= 'table' then
     return t
